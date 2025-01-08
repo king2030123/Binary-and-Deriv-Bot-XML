@@ -50,7 +50,53 @@
             </next>
           </block>
         </next>
+      </block>?xml version="1.0" encoding="UTF-8"?>
+<xml xmlns="http://www.w3.org/1999/xhtml">
+  <variables>
+    <variable id="rsi_period">14</variable>
+  </variables>
+  <block type="trade_definition">
+    <field name="TRADETYPE">CALL_PUT</field>
+    <next>
+      <block type="on_strategy">
+        <statement name="STRATEGY">
+          <block type="controls_if">
+            <value name="IF0">
+              <block type="indicator_rsi">
+                <field name="TIMEPERIOD">14</field>
+                <field name="APPLIEDPRICE">close</field>
+                <field name="CONDITION">crosses_above</field>
+                <field name="LEVEL">30</field>
+              </block>
+            </value>
+            <statement name="DO0">
+              <block type="trade_purchase">
+                <field name="TRADETYPE">CALL</field>
+              </block>
+            </statement>
+            <next>
+              <block type="controls_if">
+                <value name="IF0">
+                  <block type="indicator_rsi">
+                    <field name="TIMEPERIOD">14</field>
+                    <field name="APPLIEDPRICE">close</field>
+                    <field name="CONDITION">crosses_below</field>
+                    <field name="LEVEL">70</field>
+                  </block>
+                </value>
+                <statement name="DO0">
+                  <block type="trade_stop">
+                    <field name="STOPTYPE">STOPBOT</field>
+                  </block>
+                </statement>
+              </block>
+            </next>
+          </block>
+        </statement>
       </block>
+    </next>
+  </block>
+</xml>
     </statement>
     <statement name="INITIALIZATION">
       <block type="text_print" id="PwqtA1)[*oUt6SE?Qs#e">
